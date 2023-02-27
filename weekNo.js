@@ -9,6 +9,17 @@ function getWeek() {
     return Math.ceil(days / 7);
 }
 
+Date.prototype.getWeekNumber = function () {
+
+    var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+
+    d.setUTCDate(d.getUTCDate() - d.getUTCDay());
+
+    var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+
+    return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+};
+
 async function addWeekNoStructureToPage() {
 
     const startpage = document.querySelector(".startpage");
@@ -36,15 +47,26 @@ async function addWeekNoStructureToPage() {
         position = "afterend";
     }
 
+    // const c = new Date(2023, 2 - 1, 25).getWeekNumber();
+    // const d = new Date(2023, 2 - 1, 26).getWeekNumber();
+
+    const week = getWeek();
+    const sup = getSup(week % 10);
+
     const WeekNoContainer = document.createElement("div");
     WeekNoContainer.id = "weekContainer";
-    WeekNoContainer.innerHTML = `
-       ${getWeek()}<sup>th</sup> Week
-    `;
+    WeekNoContainer.innerHTML = `${week}<sup>${sup}</sup> Week`;
 
     refrenceElement.insertAdjacentElement(position, WeekNoContainer);
 }
-
+function getSup(num) {
+    const i = {
+        1: "st",
+        2: "nd",
+        3: "rd"
+    }
+    return i[num] ? i[num] : 'th';
+}
 function weekNoToSpeeddial() {
 
     // only reliable way to detect new tabs including new windows with a single startpage tab
@@ -67,8 +89,8 @@ function weekNoToSpeeddial() {
 }
 
 let intervalweekNo = setInterval(() => {
-    const browser = document.getElementById("browser");
 
+    const browser = document.getElementById("browser");
     if (!browser) return;
 
     clearInterval(intervalweekNo);
