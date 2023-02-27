@@ -55,7 +55,7 @@ async function addWeekNoStructureToPage() {
 
     const WeekNoContainer = document.createElement("div");
     WeekNoContainer.id = "weekContainer";
-    WeekNoContainer.innerHTML = `${week}<sup>${sup}</sup> Week`;
+    WeekNoContainer.innerHTML = `${week}<sup>${sup}</sup> week`;
 
     refrenceElement.insertAdjacentElement(position, WeekNoContainer);
 }
