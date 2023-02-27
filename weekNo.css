@@ -1,0 +1,13 @@
+#weekContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    margin: 10px;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+#weekContainer:hover {
+    background-color: rgba(1, 1, 1, 0.5);
+}
