@@ -51,15 +51,18 @@ async function addWeekNoStructureToPage() {
     // const d = new Date(2023, 2 - 1, 26).getWeekNumber();
 
     const week = getWeek();
-    const sup = getSup(week % 10);
+    const sup = getSup(week);
 
     const WeekNoContainer = document.createElement("div");
     WeekNoContainer.id = "weekContainer";
-    WeekNoContainer.innerHTML = `${week}<sup>${sup}</sup> Week`;
+    WeekNoContainer.innerHTML = `${week}<sup>${sup}</sup> week`;
 
     refrenceElement.insertAdjacentElement(position, WeekNoContainer);
 }
 function getSup(num) {
+    if (week >= 4 && week <= 20) return 'th';
+
+    num = num % 10;
     const i = {
         1: "st",
         2: "nd",
