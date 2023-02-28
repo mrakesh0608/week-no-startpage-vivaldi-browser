@@ -59,10 +59,10 @@ async function addWeekNoStructureToPage() {
 
     refrenceElement.insertAdjacentElement(position, WeekNoContainer);
 }
-function getSup(num) {
+function getSup(week) {
     if (week >= 4 && week <= 20) return 'th';
 
-    num = num % 10;
+    const num = week % 10;
     const i = {
         1: "st",
         2: "nd",
