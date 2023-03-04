@@ -1,14 +1,3 @@
-function getWeek() {
-
-    currentDate = new Date();
-
-    startDate = new Date(currentDate.getFullYear(), 0, 1);
-
-    var days = Math.floor((currentDate - startDate) / (24 * 60 * 60 * 1000));
-
-    return Math.ceil(days / 7);
-}
-
 Date.prototype.getWeekNumber = function () {
 
     var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
@@ -22,7 +11,6 @@ Date.prototype.getWeekNumber = function () {
 
 async function addWeekNoStructureToPage() {
 
-    const startpage = document.querySelector(".startpage");
     const oldWeekNo = document.getElementById("weekContainer");
 
     // BUG-FIX: It may was showing up on bookmarks, history, and notes pages
@@ -33,43 +21,17 @@ async function addWeekNoStructureToPage() {
     }
 
     // check if already exists and elements are valid
-    if (oldWeekNo || !startpage) return;
+    if (oldWeekNo) return;
 
-    const startpageNav = document.querySelector(".startpage .startpage-navigation");
-    let refrenceElement, position;
-
-    if (startpageNav) {
-        refrenceElement = startpageNav;
-        position = "afterbegin";
-    }
-    else {
-        refrenceElement = startpage;
-        position = "afterend";
-    }
-
-    // const c = new Date(2023, 2 - 1, 25).getWeekNumber();
-    // const d = new Date(2023, 2 - 1, 26).getWeekNumber();
-
-    const week = getWeek();
-    const sup = getSup(week);
+    const week = (new Date()).getWeekNumber();
 
     const WeekNoContainer = document.createElement("div");
     WeekNoContainer.id = "weekContainer";
-    WeekNoContainer.innerHTML = `${week}<sup>${sup}</sup> week`;
-
-    refrenceElement.insertAdjacentElement(position, WeekNoContainer);
+    WeekNoContainer.classList.add('button-toolbar');
+    WeekNoContainer.innerText = `Current Week : ${week}`;
+    document.querySelector('.StatusInfo').insertAdjacentElement('afterend', WeekNoContainer);
 }
-function getSup(week) {
-    if (week >= 4 && week <= 20) return 'th';
 
-    const num = week % 10;
-    const i = {
-        1: "st",
-        2: "nd",
-        3: "rd"
-    }
-    return i[num] ? i[num] : 'th';
-}
 function weekNoToSpeeddial() {
 
     // only reliable way to detect new tabs including new windows with a single startpage tab

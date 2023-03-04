@@ -1,16 +1,8 @@
 #weekContainer {
-    position: absolute;
-    top: 0;
-    right: 0;
-
-    margin: 10px;
-    padding: 5px;
-    border-radius: 8px;
+    padding: 5px !important;
+    border-radius: 8px !important;
 }
 
 #weekContainer:hover {
     background-color: rgba(1, 1, 1, 0.5);
-}
-#weekContainer sup{
-    margin-left: 1px;
 }
